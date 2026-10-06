@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FSUtil = FSClasses.FSUtil
 
 const PathBar = preload("uid://bw2knsytgo0vu") #! resolve ALibRuntime.UICustom.PathBar

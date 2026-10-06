@@ -1,5 +1,5 @@
 const UTree = preload("uid://1gwputufojp6") #! resolve UtilR.Nodes.Trees.UTree
-const FSTreeHelper = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_tree_helper.gd")
+const FSTreeHelper = preload("res://addons/_lib/editor_filesystem/src/util/fs_tree_helper.gd")
 
 var original_file_name = ""
 var _file_tree:Tree

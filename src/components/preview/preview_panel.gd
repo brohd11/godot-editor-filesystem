@@ -7,11 +7,11 @@ const UControl = preload("uid://brio73mirr5e6") #! resolve ALibRuntime.Utils.UCo
 
 const PluginButton = preload("uid://cwiqk1fttu0sy").PluginButton #! resolve ALibEditor.UIHelpers.Buttons.PluginButton
 
-const TextViewer = preload("res://addons/addon_lib/editor_filesystem/src/components/preview/viewers/text.gd")
-const MaterialViewer = preload("res://addons/addon_lib/editor_filesystem/src/components/preview/viewers/material_3d.gd")
+const TextViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/text.gd")
+const MaterialViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/material_3d.gd")
 
 
-const SceneViewer = preload("res://addons/addon_lib/brohd/alib_editor/misc/scene_viewer/scene_viewer.gd")
+const SceneViewer = preload("res://addons/_lib/brohd/alib_editor/misc/scene_viewer/scene_viewer.gd")
 
 
 const TEXT_FILE_TYPES = [

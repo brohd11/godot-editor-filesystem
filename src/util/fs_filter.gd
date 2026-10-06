@@ -1,4 +1,4 @@
-const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FSUtil = FSClasses.FSUtil
 const UResourceMethods = FSUtil.UResourceMethods
 const ReadTres = UtilR.Resources.Read.Tres

@@ -3,10 +3,10 @@
 extends VBoxContainer
 
 const PopupHelper = UtilR.Nodes.Popups.PathHelper
-const FSTreeHelperBase = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_tree_helper_base.gd")
+const FSTreeHelperBase = preload("res://addons/_lib/editor_filesystem/src/util/fs_tree_helper_base.gd")
 const FileData = preload("uid://fhnuvnmqrurq").FileData #! resolve FileSystemSingleton.FileData
 const PopupID = preload("uid://co1fsmkihc4cg") #! resolve FileSystemSingleton.FSGenericPopupHandler.PopupID
-const FSRenameContext = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_rename_ctx.gd")
+const FSRenameContext = preload("res://addons/_lib/editor_filesystem/src/util/fs_rename_ctx.gd")
 const TreeAltColor = preload("uid://bgfj0lf3e1btg") #! resolve UtilR.Nodes.Trees.AltLineColor
 
 const SET_ROOT = "Set Root"

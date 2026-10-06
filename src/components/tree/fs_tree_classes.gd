@@ -1,6 +1,6 @@
 
 
-const FSTreeHelperBase = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_tree_helper_base.gd")
+const FSTreeHelperBase = preload("res://addons/_lib/editor_filesystem/src/util/fs_tree_helper_base.gd")
 const FileData = FileSystemSingleton.FileData
 
 class FSTreeHelper extends FSTreeHelperBase:

@@ -1,6 +1,6 @@
 
 const PopupID = preload("uid://co1fsmkihc4cg") #! resolve ALibEditor.Nodes.FileSystem.PopupID
-const FSPopupHelper = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_popup_helper.gd")
+const FSPopupHelper = preload("res://addons/_lib/editor_filesystem/src/util/fs_popup_helper.gd")
 
 
 const HANDLE_RIGHT_CLICK_METHOD = &"custom_right_click_menu"

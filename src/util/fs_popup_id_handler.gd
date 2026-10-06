@@ -1,7 +1,7 @@
 extends Node
 
 const PopupHelper = UtilR.Nodes.Popups.PathHelper
-const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemTree = FSClasses.FileSystemTree
 

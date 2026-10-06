@@ -37,7 +37,7 @@ const SettingHelperEditor = preload("uid://dnov6vp7pjnbb") #! resolve SettingHel
 const SettingHelperSingleton = preload("uid://60187tsv40mq") #! resolve SettingHelper.Singleton
 const SettingHelperJson = SettingHelperSingleton.SHJson
 
-const ColumnDragger = preload("res://addons/addon_lib/brohd/alib_runtime/ui/column/dragger.gd")
+const ColumnDragger = preload("res://addons/_lib/brohd/alib_runtime/ui/column/dragger.gd")
 
 
 

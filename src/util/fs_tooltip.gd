@@ -1,5 +1,5 @@
 
-#const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+#const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 #const FSUtil = preload("uid://c7yf322tn6f0b") #! resolve FSClasses.FSUtil
 
 const UFile = preload("uid://bl33psa06nv1e") #! resolve ALibRuntime.Utils.UFile.Methods

@@ -5,7 +5,7 @@ const _MIN_SIZE = Vector2(100,0)
 
 #! import_p FileData,
 
-const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemTree = FSClasses.FileSystemTree
 const FSTreeHelper = FSClasses.FSTreeHelper

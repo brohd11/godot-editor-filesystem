@@ -12,7 +12,7 @@ const UControl = FSUtil.UControl
 const EditorIcons = FSUtil.EditorIcons
 const CacheHelper = FSUtil.CacheHelper
 
-const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
+const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemPathBar = FSClasses.FileSystemPathBar
 const FileSystemTree = FSClasses.FileSystemTree
