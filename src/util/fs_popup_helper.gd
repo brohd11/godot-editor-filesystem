@@ -1,9 +1,10 @@
 extends RefCounted
 
-const PopupHelper = PopupWrapper.PopupHelper
+const PopupHelper = UtilR.Nodes.Popups.PathHelper
+const ContextPlugin = PopupWrapper.ContextPlugin
 
 static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Array=[], other_items:Dictionary={}):
-	#ZyxPopupWrapperSingleton.Enable.filesystem(false, false)
+	#PopupWrapperSingleton.Enable.filesystem(false, false)
 	_zyx_enable(false)
 	
 	var fs_popup:PopupMenu = EditorNodeRef.get_registered(EditorNodeRef.Nodes.FILESYSTEM_POPUP)
@@ -23,12 +24,12 @@ static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Ar
 		PopupHelper.parse_dict_static(other_pre_items, new_popup, callable, null, other_items_pre_id)
 		new_popup.add_separator()
 	
-	var wrapper_params = PopupWrapper.WrapperParams.new()
+	var wrapper_params = ContextPlugin.WrapperParams.new()
 	wrapper_params.items_to_skip = hide_names
 	wrapper_params.show_shortcuts = false
 	wrapper_params.fs_popup_callable = callable
 	wrapper_params.connect_callable = false
-	PopupWrapper.popup_wrapper(new_popup, fs_popup, wrapper_params)
+	ContextPlugin.popup_wrapper(new_popup, fs_popup, wrapper_params)
 	
 	if post_size > 0:
 		if not new_popup.is_item_separator(new_popup.item_count - 1):
@@ -36,11 +37,11 @@ static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Ar
 		PopupHelper.parse_dict_static(other_post_items, new_popup, callable, null, other_items_post_id)
 
 static func _on_popup_hide():
-	#ZyxPopupWrapperSingleton.Enable.filesystem(true, false)
+	#PopupWrapperSingleton.Enable.filesystem(true, false)
 	_zyx_enable(true)
 
 static func _zyx_enable(enable:bool):
-	var zyx = Singletons.CheckInstance.get_instance("ZyxPopupWrapperSingleton")
+	var zyx = Singletons.CheckInstance.get_instance("PopupWrapperSingleton")
 	if is_instance_valid(zyx):
 		zyx.Enable.filesystem(enable, false)
 

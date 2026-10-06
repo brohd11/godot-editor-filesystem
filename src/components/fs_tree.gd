@@ -2,6 +2,7 @@
 
 extends VBoxContainer
 
+const PopupHelper = UtilR.Nodes.Popups.PathHelper
 const FSTreeHelperBase = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_tree_helper_base.gd")
 const FileData = preload("uid://fhnuvnmqrurq").FileData #! resolve FileSystemSingleton.FileData
 const PopupID = preload("uid://co1fsmkihc4cg") #! resolve FileSystemSingleton.FSGenericPopupHandler.PopupID
@@ -401,8 +402,8 @@ func _custom_right_click_menu(_items:Dictionary, _selected_path:String, _selecte
 func handle_custom_popup_id(id:int, popup:PopupMenu):
 	if _custom_popup_handler_call(&"handle_custom_popup_id", [id, popup]):
 		return
-	var path = PopupWrapper.PopupHelper.parse_menu_path(id, popup)
-	var meta = PopupWrapper.PopupHelper.parse_metadata(id, popup)
+	var path = PopupHelper.parse_menu_path(id, popup)
+	var meta = PopupHelper.parse_metadata(id, popup)
 	var selected = meta.get("selected")
 	match path:
 		SET_ROOT: _set_root(selected)
@@ -447,11 +448,11 @@ func _add_popup_root_items(items:Dictionary, selected_path:String):
 
 
 func create_popup_item_dict(path:String, icon=null):
-	var data = {PopupWrapper.ItemParams.METADATA: {"selected": path}}
+	var data = {PopupHelper.ParamKeys.METADATA: {"selected": path}}
 	if icon:
 		if not icon is Array:
 			icon = [icon]
-		data[PopupWrapper.ItemParams.ICON] = icon
+		data[PopupHelper.ParamKeys.ICON] = icon
 	return data
 
 func _on_filter_line_text_changed(_new_text:String):

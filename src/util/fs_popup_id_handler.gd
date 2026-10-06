@@ -1,5 +1,6 @@
 extends Node
 
+const PopupHelper = UtilR.Nodes.Popups.PathHelper
 const FSClasses = preload("res://addons/addon_lib/editor_filesystem/src/util/fs_classes.gd")
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemTree = FSClasses.FileSystemTree
@@ -97,23 +98,23 @@ func custom_right_click_menu(items:Dictionary, selected:String, selected_paths:A
 	if clicked is FileSystemTree:
 		if selected == clicked.root_dir:
 			items["pre"][RESET_ROOT] = {
-				PopupWrapper.ItemParams.ICON:["Clear"]
+				PopupHelper.ParamKeys.ICON:["Clear"]
 			}
 		elif selected != "res://" and selected_is_dir:
 			items["pre"][SET_ROOT] = {
-				PopupWrapper.ItemParams.ICON:["NewRoot"]
+				PopupHelper.ParamKeys.ICON:["NewRoot"]
 			}
 	if selected_is_dir and selected_paths.size() == 1:# and not tree_helper.is_item_in_favorites(selected_item):
-		items["pre"][NEW_WINDOW] = {PopupWrapper.ItemParams.ICON:["New", "Window"]}
-		items["pre"][CREATE_NEW_TAB] = {PopupWrapper.ItemParams.ICON:["New", EditorIcons.get_icon_white("TabContainer")]}
+		items["pre"][NEW_WINDOW] = {PopupHelper.ParamKeys.ICON:["New", "Window"]}
+		items["pre"][CREATE_NEW_TAB] = {PopupHelper.ParamKeys.ICON:["New", EditorIcons.get_icon_white("TabContainer")]}
 		var split_icon = EditorIcons.get_icon_white("SplitContainer", 1)
 		for direction in [NEW_SPLIT_LEFT, NEW_SPLIT_RIGHT, NEW_SPLIT_UP, NEW_SPLIT_DOWN]:
-			items["pre"][direction] = {PopupWrapper.ItemParams.ICON:["New", split_icon, null]}
+			items["pre"][direction] = {PopupHelper.ParamKeys.ICON:["New", split_icon, null]}
 		
 		var places_options = places.get_add_to_places_options(_selected_path).get_options()
 		for option in places_options.keys():
 			items["pre"][option] = places_options[option]
-			items["pre"][option].erase(PopupWrapper.ItemParams.CALLABLE)
+			items["pre"][option].erase(PopupHelper.ParamKeys.CALLABLE)
 	pass
 
 func handle_fs_popup_id(id:int, popup:PopupMenu):
@@ -141,7 +142,7 @@ func handle_fs_popup_id(id:int, popup:PopupMenu):
 
 func handle_custom_popup_id(id:int, popup:PopupMenu):
 	var selected_path = _selected_path
-	var id_text = PopupWrapper.PopupHelper.parse_menu_path(id, popup)
+	var id_text = PopupHelper.parse_menu_path(id, popup)
 	if id_text == CREATE_NEW_TAB:
 		_rc_new_tab()
 	elif id_text == NEW_WINDOW:
@@ -151,7 +152,7 @@ func handle_custom_popup_id(id:int, popup:PopupMenu):
 		fs_data[FileSystemTab.DataKeys.CURRENT_PATH] = selected_path
 		EditorGlobalSignals.signal_emit(FileSystemTab.DataKeys.GLOBAL_NEW_WINDOW_SIGNAL, fs_data)
 	elif id_text.begins_with(ADD_TO_PLACES):
-		_add_to_places(PopupWrapper.PopupHelper.get_metadata(id, popup))
+		_add_to_places(PopupHelper.get_metadata(id, popup))
 	elif id_text == SET_ROOT:
 		tree.set_dir(selected_path, true)
 		item_list.tree_root = selected_path

@@ -33,9 +33,9 @@ const UGDScript = preload("uid://bqwb564jwff43") #! resolve ALibRuntime.Utils.UG
 const NUItemList = preload("uid://cjls86v1v4242") #! resolve ALibRuntime.NodeUtils.NUItemList
 const NUTree = preload("uid://coqq638olix8k") #! resolve ALibRuntime.NodeUtils.NUTree
 
-const SettingHelperEditor = preload("uid://c4l4v4eufkmtx") #! resolve ALibEditor.Settings.SettingHelperEditor
-const SettingHelperSingleton = preload("uid://b6jyhs240r0hm") #! resolve ALibRuntime.Settings.SettingHelperSingleton
-const SettingHelperJson = SettingHelperSingleton.SettingHelperJson
+const SettingHelperEditor = preload("uid://dnov6vp7pjnbb") #! resolve SettingHelper.Editor
+const SettingHelperSingleton = preload("uid://60187tsv40mq") #! resolve SettingHelper.Singleton
+const SettingHelperJson = SettingHelperSingleton.SHJson
 
 const ColumnDragger = preload("res://addons/addon_lib/brohd/alib_runtime/ui/column/dragger.gd")
 
