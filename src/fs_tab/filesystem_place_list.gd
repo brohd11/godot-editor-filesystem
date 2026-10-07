@@ -135,8 +135,9 @@ func rename_item(index:int):
 	var line_edit = LineSubmit.new(self, item_rect, false)
 	var current_name = get_item_title(index)
 	line_edit.set_text(current_name, LineSubmit.SelectMode.ALL)
-	var text = await line_edit.line_submitted
-	if text == current_name or text == "":
+	var resp:Dialogs.Response = await line_edit.handled
+	var text = resp.payload
+	if resp.cancelled or text == current_name or text == "":
 		return
 	set_item_title(index, text)
 	_emit_list_changed()
@@ -157,11 +158,11 @@ func set_title(new_name:String):
 	_title = new_name
 
 func rename_title():
-	var rect = title_button.get_rect()
-	rect.position += UWindow.get_control_absolute_position(title_button)
-	var line = LineSubmit.new(self, rect, false)
-	var submit = await line.line_submitted
-	if submit == "" or submit == get_title():
+	var line = LineSubmit.on_control(title_button, false)
+	line.set_text(title_button.text, LineSubmit.SelectMode.ALL)
+	var resp:Dialogs.Response = await line.handled
+	var submit = resp.payload
+	if resp.cancelled or submit == "" or submit == get_title():
 		return
 	set_title(submit)
 	_emit_list_changed()

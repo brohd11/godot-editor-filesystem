@@ -433,9 +433,9 @@ func start_edit():
 	
 	var line = LineSubmit.new(self, item_rect)
 	line.set_text(old_name, LineSubmit.SelectMode.BASENAME)
-	var new_name = await line.line_submitted
-	
-	if not FileSystemSingleton.is_new_name_valid(old_name, new_name):
+	var resp:Dialogs.Response = await line.handled
+	var new_name = resp.payload
+	if resp.cancelled or not FileSystemSingleton.is_new_name_valid(old_name, new_name):
 		return
 	
 	var old_path = get_selected_paths()[0]

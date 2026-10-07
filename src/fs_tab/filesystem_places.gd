@@ -13,7 +13,7 @@ const Options = FSUtil.Options
 const SettingHelperSingleton = FSUtil.SettingHelperSingleton
 const SettingHelperJson = FSUtil.SettingHelperJson
 const LineSubmit = FSUtil.LineSubmit
-const Dialog = FSUtil.Dialog
+const Confirmation = FSUtil.Confirmation
 
 const ADD_TO_PLACES_STRING = "Add to Places"
 const _MIN_SIZE = Vector2(100,0)
@@ -160,17 +160,17 @@ func get_place_data():
 	return data
 
 func add_place_list(place_list:PlaceList):
-	var line = Dialog.Handlers.LineSubmit.on_control(place_list.title_button, false)
-	var text = await line.line_submitted
-	if text == "":
+	var line = LineSubmit.on_control(place_list.title_button, false)
+	var resp:Dialogs.Response = await line.handled
+	if resp.cancelled or resp.payload.is_empty():
 		return
-	_new_place_list(text)
+	_new_place_list(resp.payload)
 	
 	save_and_refresh()
 
 func remove_place_list(place_list:PlaceList):
 	if place_list.get_item_count() > 0:
-		var confirmed = await Dialog.confirm("Delete non empty list?", self)
+		var confirmed = await Confirmation.confirm("Delete non empty list?", self)
 		if not confirmed:
 			return
 	

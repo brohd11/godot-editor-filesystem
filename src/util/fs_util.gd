@@ -6,7 +6,10 @@ const ClickState = preload("uid://c8l2o7cw3fklh") #! resolve UtilR.Inputs.ClickS
 const EditorIcons = preload("uid://viocyrti6wce") #! resolve ALibEditor.Singleton.EditorIcons
 
 const Dialog = preload("uid://bccd38qwc47vu") #! resolve ALibRuntime.Dialog
-const LineSubmit = Dialog.Handlers.LineSubmit
+const Response = preload("uid://dfvsa55drpfyl") #! resolve Dialogs.Response
+const LineSubmit = preload("uid://vtkuh2gtwy1b") #! resolve Dialogs.Handlers.LineSubmit
+const Confirmation = preload("uid://dwhlbgevd62gg") #! resolve Dialogs.Handlers.Confirmation
+
 
 const UEditorTheme = preload("uid://q4pcebn4vhsr") #! resolve ALibEditor.Utils.UEditorTheme
 const ThemeColor = UEditorTheme.ThemeColor
