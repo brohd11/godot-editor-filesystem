@@ -4,6 +4,7 @@ extends SplitContainer
 const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FSUtil = FSClasses.FSUtil
 
+const ClickState = FSUtil.ClickState
 const UWindow = FSUtil.UWindow
 const LineSubmit = FSUtil.LineSubmit
 const ThemeColor = FSUtil.ThemeColor
@@ -252,9 +253,9 @@ func _item_list_draw():
 	pass
 
 func _on_title_gui_input(event:InputEvent):
-	var click_state = ClickHandlers.ClickState.get_click_state(event) as ClickHandlers.ClickState.State
+	var click_state = ClickState.get_click_state(event) as ClickState.State
 	if event is InputEventMouseButton:
-		if click_state == ClickHandlers.ClickState.State.RMB_PRESSED:
+		if click_state == ClickState.State.RMB_PRESSED:
 			title_right_clicked.emit(self)
 
 func _title_can_drop_data(_at_position: Vector2, data: Variant) -> bool:

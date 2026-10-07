@@ -4,6 +4,7 @@ extends VBoxContainer
 const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FSUtil = FSClasses.FSUtil
 
+const ClickState = FSUtil.ClickState
 const UFile = FSUtil.UFile
 const ThemeColor = FSUtil.ThemeColor
 const ColumnDragger = FSUtil.ColumnDragger
@@ -11,7 +12,7 @@ const ColumnDragger = FSUtil.ColumnDragger
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemItemList = FSClasses.FileSystemItemList
 
-const ClickState = ClickHandlers.ClickState
+
 
 const MIN_COL_SIZE = 300
 

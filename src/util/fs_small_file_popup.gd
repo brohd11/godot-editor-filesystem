@@ -1,7 +1,7 @@
 #! namespace EditorFS.Components class SmallPopup
 
 const UFile = preload("uid://bl33psa06nv1e") #! resolve ALibRuntime.Utils.UFile.Methods
-const Options = preload("uid://c61qxuau2v0pb") #! resolve ALibRuntime.Popups.Options
+const Options = preload("uid://dxdxq2n3imf4q") #! resolve UtilR.Nodes.PopupMenus.Options
 
 const SCRIPT_TABS_NAME = "ScriptTabSingleton"
 const SCRIPT_DOCK_NAME = "ScriptDock"

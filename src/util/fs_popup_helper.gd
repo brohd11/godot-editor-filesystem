@@ -1,7 +1,7 @@
 extends RefCounted
 
-const PopupHelper = UtilR.Nodes.Popups.PathHelper
-const ContextPlugin = PopupWrapper.ContextPlugin
+const PopupHelper = preload("uid://ba5x2r7gyvmej") #! resolve UtilR.Nodes.PopupMenus.PathHelper
+const ContextPlugin = preload("uid://ctqnlen6s1jq1") #! resolve PopupWrapper.ContextPlugin
 
 static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Array=[], other_items:Dictionary={}):
 	#PopupWrapperSingleton.Enable.filesystem(false, false)
