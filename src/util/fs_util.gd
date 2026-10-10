@@ -3,7 +3,7 @@ const RightClickHandler = preload("uid://cs6pl78crcr0g") #! resolve UtilR.Nodes.
 const Options = RightClickHandler.Options
 const ClickState = preload("uid://c8l2o7cw3fklh") #! resolve UtilR.Inputs.ClickState
 
-const EditorIcons = preload("uid://viocyrti6wce") #! resolve ALibEditor.Singleton.EditorIcons
+const EditorIcons = preload("uid://viocyrti6wce") #! resolve PluginUI.EditorIcons
 
 const Dialog = preload("uid://bccd38qwc47vu") #! resolve ALibRuntime.Dialog
 const Response = preload("uid://dfvsa55drpfyl") #! resolve Dialogs.Response
