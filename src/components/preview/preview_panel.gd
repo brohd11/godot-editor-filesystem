@@ -5,7 +5,7 @@ extends Control
 const SceneReadFile = preload("uid://dr3oreheg7dr0") #! resolve ALibRuntime.Utils.UResource.UPackedScene.ReadFile
 const UControl = preload("uid://brio73mirr5e6") #! resolve ALibRuntime.Utils.UControl
 
-const PluginButton = preload("uid://cwiqk1fttu0sy").PluginButton #! resolve ALibEditor.UIHelpers.Buttons.PluginButton
+const PluginButton = preload("uid://redtm8tuamgm") #! resolve UIPlugin.PluginButton
 
 const TextViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/text.gd")
 const MaterialViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/material_3d.gd")
