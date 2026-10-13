@@ -1,5 +1,5 @@
 
-const PopupID = preload("uid://co1fsmkihc4cg") #! resolve ALibEditor.Nodes.FileSystem.PopupID
+const PopupID = preload("uid://ccu3jd648udtk") #! resolve EditorNodeRef.Refs.FileSystem.PopupID
 const FSPopupHelper = preload("res://addons/_lib/editor_filesystem/src/util/fs_popup_helper.gd")
 
 

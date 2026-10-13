@@ -2,10 +2,10 @@
 #const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 #const FSUtil = preload("uid://c7yf322tn6f0b") #! resolve FSClasses.FSUtil
 
-const UFile = preload("uid://bl33psa06nv1e") #! resolve ALibRuntime.Utils.UFile.Methods
+const UFile = preload("uid://bqfy5cvhth0m1") #! resolve UtilR.Files.UFile
 const UResourceMethods = preload("uid://brjrqxh2smivn") #! resolve ALibRuntime.Utils.UResource.Methods
-const GDFileRead = preload("uid://ms6j4bx7vbdr") #! resolve ALibRuntime.Utils.UGDScript.FileRead
-const UPackedScene = preload("uid://44xrh5kbrpaa") #! resolve ALibRuntime.Utils.UResource.UPackedScene
+const GDFileRead = preload("uid://te21yjkmbd3t") #! resolve UtilR.Resources.Read.Gd
+const ReadTscn = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
 const ImageSize = preload("uid://d0ld4o3cihtgv") #! resolve ALibRuntime.Utils.UResource.ImageSize
 const Audio = preload("uid://dpo6b8yu8xpy2") #! resolve ALibRuntime.Utils.UResource.Audio
 
@@ -90,13 +90,13 @@ static func _get_file_specific_details(path:String):
 			label_text += "\nScript Class: %s" % custom_type
 		
 	elif ext == "tscn":
-		var root = UPackedScene.ReadFile.get_root_type(path)
+		var root = ReadTscn.get_root_type(path)
 		if root:
 			var inh = root.begins_with("res://")
 			var inh_text = ""
 			if inh:
 				inh_text = "\nInherits: %s" % root
-				root = UPackedScene.ReadFile.get_root_type(path, true)
+				root = ReadTscn.get_root_type(path, true)
 			label_text += "\nScene Root: %s" % root
 			label_text += inh_text
 		

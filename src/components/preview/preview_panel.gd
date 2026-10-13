@@ -2,8 +2,8 @@ extends Control
 
 #! import_p UControl
 
-const SceneReadFile = preload("uid://dr3oreheg7dr0") #! resolve ALibRuntime.Utils.UResource.UPackedScene.ReadFile
-const UControl = preload("uid://brio73mirr5e6") #! resolve ALibRuntime.Utils.UControl
+const SceneReadFile = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
+const UControl = preload("uid://cdo8rcof3ilt1") #! resolve UtilR.Nodes.UControl
 
 const PluginButton = preload("uid://redtm8tuamgm") #! resolve UIPlugin.PluginButton
 
