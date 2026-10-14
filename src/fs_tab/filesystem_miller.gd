@@ -6,7 +6,7 @@ const FSUtil = FSClasses.FSUtil
 
 const ClickState = FSUtil.ClickState
 const UFile = FSUtil.UFile
-const ThemeColor = FSUtil.ThemeColor
+const EditorColors = FSUtil.EditorColors
 const ColumnDragger = FSUtil.ColumnDragger
 
 const FileSystemTab = FSClasses.FileSystemTab
@@ -538,7 +538,7 @@ class FileColumn extends HBoxContainer:
 	
 	func _item_draw() -> void:
 		if is_current:
-			var accent_color = ThemeColor.get_theme_color(ThemeColor.Type.ACCENT)
+			var accent_color = EditorColors.get_theme_color(EditorColors.ThemeColor.ACCENT)
 			var rect = item_list.get_rect()
 			item_list.draw_rect(rect, accent_color, false, 4)
 	

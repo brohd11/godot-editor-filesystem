@@ -7,7 +7,7 @@ const FSUtil = FSClasses.FSUtil
 const ClickState = FSUtil.ClickState
 const UWindow = FSUtil.UWindow
 const LineSubmit = FSUtil.LineSubmit
-const ThemeColor = FSUtil.ThemeColor
+const EditorColors = FSUtil.EditorColors
 const NUItemList = FSUtil.NUItemList
 
 const FileSystemPlaces = FSClasses.FileSystemPlaces
@@ -247,7 +247,7 @@ func _item_list_draw():
 	NUItemList.AltColor.draw_lines(item_list)
 	
 	if _list_hovered:
-		var accent_color = ThemeColor.get_theme_color(ThemeColor.Type.ACCENT)
+		var accent_color = EditorColors.get_theme_color(EditorColors.ThemeColor.ACCENT)
 		var rect = Rect2(Vector2.ZERO, item_list.size)
 		item_list.draw_rect(rect, accent_color, false, 2)
 	
@@ -291,7 +291,7 @@ func _highlight_title(state:bool=true):
 func _title_draw():
 	var lab_rect = Rect2(Vector2.ZERO, title_button.size)
 	if _hovered_title:
-		var accent_color = ThemeColor.get_theme_color(ThemeColor.Type.ACCENT)
+		var accent_color = EditorColors.get_theme_color(EditorColors.ThemeColor.ACCENT)
 		title_button.draw_rect(lab_rect, accent_color, false)
 
 func toggle_list():

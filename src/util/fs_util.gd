@@ -5,14 +5,12 @@ const ClickState = preload("uid://c8l2o7cw3fklh") #! resolve UtilR.Inputs.ClickS
 
 const EditorIcons = preload("uid://viocyrti6wce") #! resolve UIPlugin.EditorIcons
 
-const Dialog = preload("uid://bccd38qwc47vu") #! resolve ALibRuntime.Dialog
 const Response = preload("uid://dfvsa55drpfyl") #! resolve Dialogs.Response
 const LineSubmit = preload("uid://vtkuh2gtwy1b") #! resolve Dialogs.Handlers.LineSubmit
 const Confirmation = preload("uid://dwhlbgevd62gg") #! resolve Dialogs.Handlers.Confirmation
 
 
-const UEditorTheme = preload("uid://q4pcebn4vhsr") #! resolve ALibEditor.Utils.UEditorTheme
-const ThemeColor = UEditorTheme.ThemeColor
+const UEditorTheme = preload("uid://skhivjtt6r3b") #! resolve UtilE.UEditorTheme
 
 const EditorColors = preload("uid://cpw0fsrs38esk") #! resolve UtilE.Colors
 const FileSystem = preload("uid://ckkcgqmrbp57n") #! resolve EditorNodeRef.Refs.FileSystem

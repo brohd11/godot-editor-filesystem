@@ -1,6 +1,6 @@
 extends CodeEdit
 
-const TextSyntaxHighlighter = preload("res://addons/_lib/brohd/src/alib_runtime/misc/syntax_highlighters/text/text_syntax_highlighter.gd")
+const TextSyntaxHighlighter = preload("uid://bkcb5j8x3qydh") #! resolve SyntaxHighlighters.Components.TextSyntaxHighlighter
 
 func set_path(path:String):
 	if path.get_extension() == "gd":

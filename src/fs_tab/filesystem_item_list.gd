@@ -10,6 +10,7 @@ const UEditorTheme = FSUtil.UEditorTheme
 const UVersion = FSUtil.UVersion
 const NUItemList = FSUtil.NUItemList
 const UFile = FSUtil.UFile
+const EditorColors = FSUtil.EditorColors
 
 const FileSystemTab = FSClasses.FileSystemTab
 const FileSystemTree = FSClasses.FileSystemTree
@@ -65,9 +66,9 @@ func _ready() -> void:
 	#allow_rmb_select = true
 	allow_reselect = true
 	
-	if UEditorTheme.get_current_theme_style() == "Modern" and UEditorTheme.get_custom_theme_path() == "":
+	if UEditorTheme.Settings.get_current_theme_style() == "Modern" and UEditorTheme.Settings.get_custom_theme_path() == "":
 		var sb = EditorInterface.get_editor_theme().get_stylebox("panel", "ItemList").duplicate()
-		sb.bg_color = UEditorTheme.ThemeColor.get_theme_color(UEditorTheme.ThemeColor.Type.BASE).darkened(0.2)
+		sb.bg_color = EditorColors.get_theme_color(EditorColors.ThemeColor.BASE).darkened(0.2)
 		add_theme_stylebox_override("panel", sb)
 	
 	if UVersion.get_minor_version() > 5:
