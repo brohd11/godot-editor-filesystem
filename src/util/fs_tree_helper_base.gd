@@ -1,4 +1,4 @@
-extends "res://addons/_lib/util_r/node/tree/file_tree_helper_base.gd"
+extends "res://addons/_lib/util_r/src/node/tree/file_tree_helper_base.gd"
 
 var filesystem_singleton:FileSystemSingleton
 var thumbnail_size:float = 16 * EditorInterface.get_editor_scale()

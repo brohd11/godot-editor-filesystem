@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const ControllerFreeView = preload("res://addons/_lib/brohd/alib_runtime/controller/mouse_camera/free_view.gd")
+const ControllerFreeView = preload("res://addons/_lib/brohd/src/alib_runtime/controller/mouse_camera/free_view.gd")
 
 enum ModelType{
 	SPHERE,

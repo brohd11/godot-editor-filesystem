@@ -11,7 +11,7 @@ const TextViewer = preload("res://addons/_lib/editor_filesystem/src/components/p
 const MaterialViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/material_3d.gd")
 
 
-const SceneViewer = preload("res://addons/_lib/brohd/alib_editor/misc/scene_viewer/scene_viewer.gd")
+const SceneViewer = preload("res://addons/_lib/brohd/src/alib_editor/misc/scene_viewer/scene_viewer.gd")
 
 
 const TEXT_FILE_TYPES = [

@@ -1,7 +1,7 @@
 #! namespace EditorFS class Singleton
 @tool
 class_name FileSystemSingleton
-extends "res://addons/_lib/singleton/singleton_ref_count.gd" #! ext Singletons.RefCount
+extends "res://addons/_lib/singleton/src/singleton_ref_count.gd" #! ext Singletons.RefCount
 
 const CacheHelper = UtilR.Files.CacheHelper
 const UTree = UtilR.Nodes.Trees.UTree
@@ -11,7 +11,7 @@ const UVersion = UtilR.UVersion
 const UClassDetail = UtilR.Objects.UClassDetail
 const FileSystem = EditorNodeRef.Refs.FileSystem
 
-const ScenePreview = preload("res://addons/_lib/brohd/preview_gen/scene_preview/scene_preview.gd")
+const ScenePreview = preload("res://addons/_lib/brohd/src/preview_gen/scene_preview/scene_preview.gd")
 
 const FileTypes = preload("res://addons/_lib/editor_filesystem/src/util/file_types.gd")
 const FSTooltip = preload("res://addons/_lib/editor_filesystem/src/util/fs_tooltip.gd")
