@@ -3,11 +3,11 @@
 #const FSUtil = preload("uid://c7yf322tn6f0b") #! resolve FSClasses.FSUtil
 
 const UFile = preload("uid://bqfy5cvhth0m1") #! resolve UtilR.Files.UFile
-const UResourceMethods = preload("uid://brjrqxh2smivn") #! resolve ALibRuntime.Utils.UResource.Methods
+const ReadTres = preload("uid://b63khouggaars") #! resolve UtilR.Resources.Read.Tres
 const GDFileRead = preload("uid://te21yjkmbd3t") #! resolve UtilR.Resources.Read.Gd
 const ReadTscn = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
-const ImageSize = preload("uid://d0ld4o3cihtgv") #! resolve ALibRuntime.Utils.UResource.ImageSize
-const Audio = preload("uid://dpo6b8yu8xpy2") #! resolve ALibRuntime.Utils.UResource.Audio
+const ImageSize = preload("uid://d0ld4o3cihtgv") #! resolve UtilR.Resources.ImageSize
+const Audio = preload("uid://dpo6b8yu8xpy2") #! resolve UtilR.Resources.Audio
 
 
 static func get_custom_tooltip(path: String) -> Object:
@@ -85,7 +85,7 @@ static func _get_file_specific_details(path:String):
 	var label_text = ""
 	var ext = path.get_extension()
 	if ext == "tres":
-		var custom_type = UResourceMethods.get_resource_script_class(path)
+		var custom_type = ReadTres.get_resource_script_class(path)
 		if custom_type:
 			label_text += "\nScript Class: %s" % custom_type
 		
