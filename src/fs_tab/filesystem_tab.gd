@@ -9,8 +9,10 @@ const RightClickHandler = FSUtil.RightClickHandler
 const UFile = FSUtil.UFile
 const GetFilesAsync = FSUtil.GetFilesAsync
 const UControl = FSUtil.UControl
-const EditorIcons = FSUtil.EditorIcons
 const CacheHelper = FSUtil.CacheHelper
+const EditorIcons = FSUtil.EditorIcons
+const EditorGlobalSignals = FSUtil.EditorGlobalSignals
+const EditorDebounce = FSUtil.EditorDebounce
 
 const FSClasses = preload("res://addons/_lib/editor_filesystem/src/util/fs_classes.gd")
 const FileSystemTab = FSClasses.FileSystemTab
@@ -769,7 +771,7 @@ func _item_path_selection(path:String):
 	_emit_global_signals(path)
 
 func _send_to_preview_panel(path:String):
-	if not Debounce.start_debounce(&"fs_tree_preview"):
+	if not EditorDebounce.start_debounce(&"fs_tree_preview"):
 		return
 	
 	if _show_preview and is_instance_valid(preview_panel):

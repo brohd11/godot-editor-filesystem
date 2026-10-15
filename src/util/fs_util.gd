@@ -1,21 +1,23 @@
 
-const RightClickHandler = preload("uid://cs6pl78crcr0g") #! resolve UtilR.Nodes.PopupMenus.Placer
-const Options = RightClickHandler.Options
-const ClickState = preload("uid://c8l2o7cw3fklh") #! resolve UtilR.Inputs.ClickState
-
+const PluginButton = preload("uid://redtm8tuamgm") #! resolve UIPlugin.PluginButton
 const EditorIcons = preload("uid://viocyrti6wce") #! resolve UIPlugin.EditorIcons
+const ColumnDragger = preload("uid://chpprqftv7wt6") #! resolve UIRuntime.ColumnDragger
 
 const Response = preload("uid://dfvsa55drpfyl") #! resolve Dialogs.Response
 const LineSubmit = preload("uid://vtkuh2gtwy1b") #! resolve Dialogs.Handlers.LineSubmit
 const Confirmation = preload("uid://dwhlbgevd62gg") #! resolve Dialogs.Handlers.Confirmation
 
-
 const UEditorTheme = preload("uid://skhivjtt6r3b") #! resolve UtilE.UEditorTheme
-
 const EditorColors = preload("uid://cpw0fsrs38esk") #! resolve UtilE.Colors
+const EditorGlobalSignals = preload("uid://0q57q1dlbmxy") #! resolve UtilE.EditorGlobalSignals
+const EditorDebounce = preload("uid://dj7onqldxu4yg") #! resolve UtilE.EditorDebounce
+
 const FileSystem = preload("uid://ckkcgqmrbp57n") #! resolve EditorNodeRef.Refs.FileSystem
 const PopupID = preload("uid://ccu3jd648udtk") #! resolve EditorNodeRef.Refs.FileSystem.PopupID
 
+const RightClickHandler = preload("uid://cs6pl78crcr0g") #! resolve UtilR.Nodes.PopupMenus.Placer
+const Options = RightClickHandler.Options
+const ClickState = preload("uid://c8l2o7cw3fklh") #! resolve UtilR.Inputs.ClickState
 const UVersion = preload("uid://dn156lc18d1vt") #! resolve UtilR.UVersion
 const UFile = preload("uid://bqfy5cvhth0m1") #! resolve UtilR.Files.UFile
 const GetFilesAsync = preload("uid://r6odl3pgmbp8") #! resolve UtilR.Files.GetFilesAsync
@@ -30,16 +32,16 @@ const UControl = preload("uid://cdo8rcof3ilt1") #! resolve UtilR.Nodes.UControl
 const UResource = preload("uid://xwy6i4dlbtvs") #! resolve UtilR.Resources.UResource
 const UResourceMethods = UResource
 const ReadTres = preload("uid://b63khouggaars") #! resolve UtilR.Resources.Read.Tres
-
+const ReadTscn = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
 const NUItemList = preload("uid://bmkydws861tcb") #! resolve UtilR.Nodes.ItemLists.UItemList
 
 const SettingHelperEditor = preload("uid://dnov6vp7pjnbb") #! resolve SettingHelper.Editor
 const SettingHelperSingleton = preload("uid://60187tsv40mq") #! resolve SettingHelper.Singleton
 const SettingHelperJson = SettingHelperSingleton.SHJson
 
-const ColumnDragger = preload("uid://chpprqftv7wt6") #! resolve UIRuntime.ColumnDragger
-
-
+const TextViewer = preload("uid://pkyepa1hmp4") #! resolve ResourceView.TextViewer
+const MaterialViewer = preload("uid://bmf1icbgkjsjx") #! resolve ResourceView.MaterialViewer
+const SceneViewer = preload("uid://c7kqsm24o7mlm") #! resolve ResourceView.SceneViewer
 
 #^ THESE ARE MOVED TO SINGLETON
 static func is_path_valid_res(path:String) -> bool:

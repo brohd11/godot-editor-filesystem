@@ -11,7 +11,7 @@ const UVersion = UtilR.UVersion
 const UClassDetail = UtilR.Objects.UClassDetail
 const FileSystem = EditorNodeRef.Refs.FileSystem
 
-const ScenePreview = preload("res://addons/_lib/brohd/src/preview_gen/scene_preview/scene_preview.gd")
+const SceneThumbnail = preload("uid://pvd516cw8g5m") #! resolve ResourceView.SceneThumbnail
 
 const FileTypes = preload("res://addons/_lib/editor_filesystem/src/util/file_types.gd")
 const FSTooltip = preload("res://addons/_lib/editor_filesystem/src/util/fs_tooltip.gd")
@@ -65,7 +65,7 @@ var _previews_generated:=false #^ need a flag to retrigger when all are built af
 var _preview_balance:=0
 var _init_complete:=false
 
-var _scene_preview:ScenePreview
+var _scene_preview:SceneThumbnail
 
 signal filesystem_changed
 signal filesystem_paths_changed(changed:bool)
@@ -90,7 +90,7 @@ func _on_editor_node_ref_ready():
 	
 	_register_dialogs()
 	
-	_scene_preview = ScenePreview.new()
+	_scene_preview = SceneThumbnail.new()
 	add_child(_scene_preview)
 	_scene_preview.queue_processed.connect(_scene_preview_queue_processed)
 	
@@ -394,8 +394,8 @@ func _get_preview(path:String):
 		var _hash = _scene_preview.hash_cache[path]
 		var preview_data = _scene_preview.cache.get(_hash)
 		if preview_data != null:
-			var preview = preview_data.get(ScenePreview.PREVIEW)
-			var preview_path = preview_data.get(ScenePreview.PREVIEW_PATH)
+			var preview = preview_data.get(SceneThumbnail.PREVIEW)
+			var preview_path = preview_data.get(SceneThumbnail.PREVIEW_PATH)
 			CacheHelper.store_data(path, preview_data, cache.resource_previews, [preview_path])
 			return preview
 		return

@@ -14,6 +14,7 @@ const FSUtil = FSClasses.FSUtil
 const EditorIcons = FSUtil.EditorIcons
 
 const PopupID = FSUtil.PopupID
+const EditorGlobalSignals = FSUtil.EditorGlobalSignals
 
 const FSGenericPopupHandler = FileSystemSingleton.FSGenericPopupHandler
 

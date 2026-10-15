@@ -4,14 +4,10 @@ extends Control
 
 const SceneReadFile = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
 const UControl = preload("uid://cdo8rcof3ilt1") #! resolve UtilR.Nodes.UControl
-
 const PluginButton = preload("uid://redtm8tuamgm") #! resolve UIPlugin.PluginButton
-
-const TextViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/text.gd")
-const MaterialViewer = preload("res://addons/_lib/editor_filesystem/src/components/preview/viewers/material_3d.gd")
-
-
-const SceneViewer = preload("res://addons/_lib/brohd/src/alib_editor/misc/scene_viewer/scene_viewer.gd")
+const TextViewer = preload("uid://pkyepa1hmp4") #! resolve ResourceView.TextViewer
+const MaterialViewer = preload("uid://bmf1icbgkjsjx") #! resolve ResourceView.MaterialViewer
+const SceneViewer = preload("uid://c7kqsm24o7mlm") #! resolve ResourceView.SceneViewer
 
 
 const TEXT_FILE_TYPES = [
