@@ -79,6 +79,9 @@ func _ready() -> void:
 	_packed_scene_preview_3d = SceneViewer.new()
 	_init_viewer(_packed_scene_preview_3d)
 	_packed_scene_preview_3d.set_panel_mode(SceneViewer.PanelMode.SINGLE)
+	_packed_scene_preview_3d.activate_path_callable = FileSystemSingleton.activate_path
+	_packed_scene_preview_3d.navigate_path_callable = FileSystemSingleton.navigate_to_path
+	_packed_scene_preview_3d.tooltip_callable = FileSystemSingleton.get_custom_tooltip
 	
 
 func clear():
