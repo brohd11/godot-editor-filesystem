@@ -925,7 +925,12 @@ func _on_rc_new_tab(path:String): #^ new window is in fs_popup_id_handler
 func _on_options_button_pressed():
 	var options = RightClickHandler.Options.new()
 	
-	options.add_option("Preview", _toggle_preview_panel, ["Info"])
+	options.add_option("Preview/Toggle", _toggle_preview_panel, ["Info", "GuiVisibilityVisible"])
+	if is_instance_valid(preview_panel):
+		for option in FSClasses.PreviewPanel.AUTO_INSTANCE_OPTIONS:
+			var icon = "PackedScene" if option == FSClasses.PreviewPanel.MODELS_OPTION else option
+			options.add_radio_option("Preview/Instance " + option, preview_panel.toggle_auto_instance.bind(option),
+				preview_panel.is_auto_instance(option), ["Info", icon])
 	
 	var view_icon = EditorInterface.get_editor_theme().get_icon("TexturePreviewChannels", "EditorIcons")
 	var place_bar_icon = EditorInterface.get_editor_theme().get_icon("Favorites", "EditorIcons")

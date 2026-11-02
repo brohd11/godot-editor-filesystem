@@ -41,7 +41,7 @@ const SettingHelperJson = SettingHelperSingleton.SHJson
 
 const TextViewer = preload("uid://pkyepa1hmp4") #! resolve ResourceView.TextViewer
 const MaterialViewer = preload("uid://bmf1icbgkjsjx") #! resolve ResourceView.MaterialViewer
-const SceneViewer = preload("uid://c7kqsm24o7mlm") #! resolve ResourceView.SceneViewer
+const Node3DViewer = preload("uid://c7kqsm24o7mlm") #! resolve ResourceView.Node3DViewer
 
 #^ THESE ARE MOVED TO SINGLETON
 static func is_path_valid_res(path:String) -> bool:

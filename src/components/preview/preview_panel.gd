@@ -2,12 +2,11 @@ extends Control
 
 #! import_p UControl
 
-const SceneReadFile = preload("uid://cx8sx32appge5") #! resolve UtilR.Resources.Read.Tscn
 const UControl = preload("uid://cdo8rcof3ilt1") #! resolve UtilR.Nodes.UControl
 const PluginButton = preload("uid://redtm8tuamgm") #! resolve UIPlugin.PluginButton
 const TextViewer = preload("uid://pkyepa1hmp4") #! resolve ResourceView.TextViewer
 const MaterialViewer = preload("uid://bmf1icbgkjsjx") #! resolve ResourceView.MaterialViewer
-const SceneViewer = preload("uid://c7kqsm24o7mlm") #! resolve ResourceView.SceneViewer
+const SceneViewer = preload("uid://crni663ngyj7x") #! resolve ResourceView.SceneViewer
 
 
 const TEXT_FILE_TYPES = [
@@ -16,13 +15,12 @@ const TEXT_FILE_TYPES = [
 	"gd", "cs", # script types too
 	]
 
-const PACKED_SCENE_TYPES = [
-	"tscn", "scn", "fbx", "gltf", "glb",
-	"obj", # not scene but could be display somehow
-]
-const PACKED_SCENE_3D_ROOTS = [
-	"Node3D", "MeshInstance3D", "StaticBody3D"
-]
+# Scenes and models wait for the Instance button unless their auto-instance option is on.
+const SCENE_TYPES = ["tscn", "scn"]
+const MODEL_TYPES = ["glb", "gltf", "fbx", "obj"]
+const MODELS_OPTION = "Models"
+## Offered as "Preview/Instance <option>". Root types match scenes of or inheriting them.
+const AUTO_INSTANCE_OPTIONS = ["Node3D", "Control", MODELS_OPTION]
 
 const TEXTURE_FILE_TYPES = [
 	"CompressedTexture2D"
@@ -43,46 +41,66 @@ var active_preview_path:String
 
 # content specific
 var _text_preview:TextViewer
-var _packed_scene_preview_3d:SceneViewer
+var _scene_preview:SceneViewer
+var _scene_instance_prompt:VBoxContainer
+var _instance_button:Button
+var _pending_root_type:String
+var _pending_kind:SceneViewer.Kind = SceneViewer.Kind.NONE
+var _pending_is_model:bool
 var _material_preview:MaterialViewer
 var _texture_preview:TextureRect
 var _audio_preview
 
+# Session-only, per tab: never written to dock data.
+var _auto_instance:Dictionary = {MODELS_OPTION: true}
+
 
 func _ready() -> void:
 	# for header
-	
+
 	clip_contents = true
-	
+
 	_main_vbox = VBoxContainer.new()
 	add_child(_main_vbox)
 	_main_vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	
+
 	_preview_vbox = VBoxContainer.new()
 	_main_vbox.add_child(_preview_vbox)
 	UControl.expand(_preview_vbox)
-	
+
 	_details_vbox = DetailsPanel.new()
 	_main_vbox.add_child(_details_vbox)
 	_details_vbox.close_button_pressed.connect(clear)
-	
+
 	_text_preview = TextViewer.new()
 	_init_viewer(_text_preview)
-	
+
 	_material_preview = MaterialViewer.new()
 	_init_viewer(_material_preview)
-	
+
 	_texture_preview = TextureRect.new()
 	_init_viewer(_texture_preview)
 	_texture_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	
-	_packed_scene_preview_3d = SceneViewer.new()
-	_init_viewer(_packed_scene_preview_3d)
-	_packed_scene_preview_3d.set_panel_mode(SceneViewer.PanelMode.SINGLE)
-	_packed_scene_preview_3d.activate_path_callable = FileSystemSingleton.activate_path
-	_packed_scene_preview_3d.navigate_path_callable = FileSystemSingleton.navigate_to_path
-	_packed_scene_preview_3d.tooltip_callable = FileSystemSingleton.get_custom_tooltip
-	
+
+	_scene_preview = SceneViewer.new()
+	_init_viewer(_scene_preview)
+	_scene_preview.activate_path_callable = FileSystemSingleton.activate_path
+	_scene_preview.navigate_path_callable = FileSystemSingleton.navigate_to_path
+	_scene_preview.tooltip_callable = FileSystemSingleton.get_custom_tooltip
+
+	_scene_instance_prompt = VBoxContainer.new()
+	_init_viewer(_scene_instance_prompt)
+	var prompt_icon = TextureRect.new()
+	_scene_instance_prompt.add_child(prompt_icon)
+	UControl.expand(prompt_icon)
+	prompt_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	prompt_icon.texture = EditorInterface.get_editor_theme().get_icon(&"FileBigThumb", &"EditorIcons")
+	var instance_button_builder = PluginButton.new(&"PackedScene", _instance_pending_scene)
+	instance_button_builder.theme_type_variation = &"" # not flat; it's the primary action here
+	_instance_button = instance_button_builder.get_button()
+	_instance_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_scene_instance_prompt.add_child(_instance_button)
+
 
 func clear():
 	hide()
@@ -93,6 +111,8 @@ func _remove_current_viewer():
 	if _preview_vbox.get_child_count() > 0:
 		for c in _preview_vbox.get_children():
 			_preview_vbox.remove_child(c)
+	# Free the instanced scene rather than keep it alive while detached.
+	_scene_preview.clear()
 
 func preview_file(path:String):
 	if path == active_preview_path:
@@ -104,22 +124,37 @@ func preview_file(path:String):
 	_get_viewer(path, file_type)
 
 
+func is_auto_instance(option:String) -> bool:
+	return _auto_instance.get(option, false)
+
+func toggle_auto_instance(option:String) -> void:
+	_auto_instance[option] = not is_auto_instance(option)
+	# Enabling an option while its prompt is showing instances that file right away.
+	if _scene_instance_prompt.is_inside_tree() and _should_auto_instance():
+		_instance_pending_scene()
 
 
 func _get_viewer(path:String, file_type:String):
 	_texture_preview.modulate = Color.WHITE # reset if folder changed it
-	print(file_type)
 	var ext = path.get_extension()
 	if ext in TEXT_FILE_TYPES:
 		_add_viewer(_text_preview)
 		_text_preview.set_path(path)
-	elif ext in PACKED_SCENE_TYPES:
-		if SceneReadFile.get_root_type(path) in PACKED_SCENE_3D_ROOTS:
-			_add_viewer(_packed_scene_preview_3d)
-			_packed_scene_preview_3d.set_scene_paths([path])
+	elif ext in SCENE_TYPES or ext in MODEL_TYPES:
+		_pending_is_model = ext in MODEL_TYPES
+		if _pending_is_model:
+			_pending_root_type = ""
+			_pending_kind = SceneViewer.Kind.SCENE_3D
+		else:
+			_pending_root_type = SceneViewer.get_root_type(path)
+			_pending_kind = SceneViewer.get_kind(_pending_root_type)
+		if _should_auto_instance():
+			_instance_pending_scene()
+		else:
+			_show_instance_prompt()
 	elif ClassDB.is_parent_class(file_type, "Mesh"):
-		_add_viewer(_packed_scene_preview_3d)
-		_packed_scene_preview_3d.set_scene_paths([path])
+		_add_viewer(_scene_preview)
+		_scene_preview.show_3d([path])
 	elif file_type in TEXTURE_FILE_TYPES:
 		_add_viewer(_texture_preview)
 		var texture = load(path)
@@ -127,16 +162,46 @@ func _get_viewer(path:String, file_type:String):
 	elif file_type in MATERIAL_FILE_TYPES:
 		_add_viewer(_material_preview)
 		_material_preview.set_material_path(path)
-	else: # fallback
-		_add_viewer(_texture_preview)
-		if path.ends_with("/"):
-			_texture_preview.texture = EditorInterface.get_editor_theme().get_icon(&"FolderBigThumb", &"EditorIcons")
-			_texture_preview.modulate = FileSystemSingleton.get_instance().get_folder_color(path)
-		else:
-			_texture_preview.texture = EditorInterface.get_editor_theme().get_icon(&"FileBigThumb", &"EditorIcons")
+	else:
+		_show_file_icon(path)
+
+func _show_file_icon(path:String):
+	_add_viewer(_texture_preview)
+	if path.ends_with("/"):
+		_texture_preview.texture = EditorInterface.get_editor_theme().get_icon(&"FolderBigThumb", &"EditorIcons")
+		_texture_preview.modulate = FileSystemSingleton.get_instance().get_folder_color(path)
+	else:
+		_texture_preview.texture = EditorInterface.get_editor_theme().get_icon(&"FileBigThumb", &"EditorIcons")
 
 func _add_viewer(control:Control):
 	_preview_vbox.add_child(control)
+
+func _instance_pending_scene():
+	_remove_current_viewer()
+	# Added first: the 2D view only instances while inside the tree.
+	_add_viewer(_scene_preview)
+	_scene_preview.show_scene(active_preview_path, _pending_kind)
+
+# Unpreviewable roots still get the button, disabled, so the root type explains why.
+func _show_instance_prompt():
+	var label = "Model" if _pending_is_model else _pending_root_type
+	if label.is_empty():
+		label = "Unknown" # binary .scn, or no root node found
+	var can_instance = _pending_kind != SceneViewer.Kind.NONE
+	_instance_button.text = "Instance (%s)" % label
+	_instance_button.disabled = not can_instance
+	_instance_button.tooltip_text = "" if can_instance else "%s roots can't be previewed." % label
+	_add_viewer(_scene_instance_prompt)
+
+func _should_auto_instance() -> bool:
+	if _pending_kind == SceneViewer.Kind.NONE:
+		return false
+	if _pending_is_model:
+		return is_auto_instance(MODELS_OPTION)
+	for option in _auto_instance:
+		if option != MODELS_OPTION and _auto_instance[option] and ClassDB.is_parent_class(_pending_root_type, option):
+			return true
+	return false
 
 class DetailsPanel extends VBoxContainer:
 	
