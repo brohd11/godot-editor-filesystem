@@ -18,6 +18,7 @@ const FSTooltip = preload("res://addons/_lib/editor_filesystem/src/util/fs_toolt
 const FSRename = preload("res://addons/_lib/editor_filesystem/src/util/fs_rename.gd")
 const FSGenericPopupHandler = preload("res://addons/_lib/editor_filesystem/src/util/fs_generic_popup_handler.gd")
 
+#! gdp-strip-cast PE_STRIP_CAST_SCRIPT
 const PE_STRIP_CAST_SCRIPT = preload("res://addons/_lib/editor_filesystem/src/filesystem_singleton.gd")
 
 static func get_singleton_name() -> String:

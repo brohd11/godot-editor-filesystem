@@ -1,5 +1,3 @@
-#! remote
-
 const FileSystemTab = preload("res://addons/_lib/editor_filesystem/src/fs_tab/filesystem_tab.gd")
 const FileSystemPathBar = preload("res://addons/_lib/editor_filesystem/src/fs_tab/filesystem_path_bar.gd")
 const FileSystemTree = preload("res://addons/_lib/editor_filesystem/src/fs_tab/filesystem_tree.gd")
