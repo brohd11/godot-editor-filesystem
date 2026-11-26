@@ -1,7 +1,14 @@
 
 const FileSystem = preload("uid://ckkcgqmrbp57n") #! resolve EditorNodeRef.Refs.FileSystem
 const UVersion = preload("uid://dn156lc18d1vt") #! resolve UtilR.UVersion
+const UEditorTheme = preload("uid://skhivjtt6r3b") #! resolve UtilE.UEditorTheme
 
+
+## Renaming drives the engine dock, which isn't stable before 4.6 or outside the Modern theme.
+static func is_rename_supported() -> bool:
+	if UVersion.get_major_version() == 4 and UVersion.get_minor_version() < 6:
+		return false
+	return UEditorTheme.Settings.get_current_theme_style() == "Modern"
 
 static func is_new_name_valid(original_file_name:String, new_file_name:String) -> bool:
 	if new_file_name == "":
@@ -24,6 +31,9 @@ static func show_item_in_dock(path, _activate_rename:=false):
 		activate_rename()
 
 static func activate_rename():
+	if not is_rename_supported():
+		push_error("FSRename: rename needs Godot 4.6+ and the Modern editor theme.")
+		return
 	var minor_version = UVersion.get_minor_version()
 	var popup = FileSystem.get_popup() as PopupMenu
 	popup.id_pressed.emit(10)
@@ -32,10 +42,11 @@ static func activate_rename():
 		tree.edit_selected(true)
 
 static func rename_path(old_path:String, new_file_name:String):
+	if not is_rename_supported():
+		push_error("FSRename: rename needs Godot 4.6+ and the Modern editor theme.")
+		return
 	#_rename_path_current(old_path, new_file_name)
-	var minor = UVersion.get_minor_version()
-	if minor <= 6:
-		_rename_path_minimal(old_path, new_file_name)
+	await _rename_path_minimal(old_path, new_file_name)
 
 
 

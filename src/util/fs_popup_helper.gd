@@ -2,6 +2,7 @@ extends RefCounted
 
 const PopupHelper = preload("uid://ba5x2r7gyvmej") #! resolve UtilR.Nodes.PopupMenus.PathHelper
 const ContextPlugin = preload("uid://ctqnlen6s1jq1") #! resolve PopupWrapper.ContextPlugin
+const FSRename = preload("res://addons/_lib/editor_filesystem/src/util/fs_rename.gd")
 
 static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Array=[], other_items:Dictionary={}):
 	#PopupWrapperSingleton.Enable.filesystem(false, false)
@@ -24,6 +25,8 @@ static func recreate_popup(new_popup:PopupMenu, callable:Callable, hide_names:Ar
 		PopupHelper.parse_dict_static(other_pre_items, new_popup, callable, null, other_items_pre_id)
 		new_popup.add_separator()
 	
+	if not FSRename.is_rename_supported():
+		hide_names = hide_names + [MenuItems.RENAME] # new array: callers pass consts
 	var wrapper_params = ContextPlugin.WrapperParams.new()
 	wrapper_params.items_to_skip = hide_names
 	wrapper_params.show_shortcuts = false
