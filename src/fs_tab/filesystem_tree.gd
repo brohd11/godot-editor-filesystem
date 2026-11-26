@@ -340,7 +340,6 @@ func _on_tree_helper_mouse_right_clicked():
 
 func rc_expand_folder():
 	var items = get_selected_items()
-	print(items)
 	for item in items:
 		item.collapsed = false
 
