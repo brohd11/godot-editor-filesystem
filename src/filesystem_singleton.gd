@@ -46,6 +46,7 @@ static var editor_fs:EditorFileSystem
 
 var editor_node_ref:EditorNodeRef
 var popup_handler:FSGenericPopupHandler
+var _move_dialog:Window
 
 var cache:Cache
 
@@ -666,7 +667,9 @@ func _register_dialogs():
 			move_dialog = n
 	
 	EditorNodeRef.register(Keys.FS_DIALOGS, dialog_nodes)
-	move_dialog.about_to_popup.connect(_move_dialog_create_file_list)
+	if move_dialog:
+		_move_dialog = move_dialog
+		move_dialog.about_to_popup.connect(_move_dialog_create_file_list)
 
 static func get_dialogs():
 	return EditorNodeRef.get_registered(Keys.FS_DIALOGS)
@@ -696,7 +699,9 @@ static func _on_dialog_visibility_changed(dialog_changed:Window):
 		reset_dialogs()
 
 static func reset_dialogs(parent=null, _mouse=null):
-	var dialog_nodes = EditorNodeRef.get_registered(Keys.FS_DIALOGS)
+	var dialog_nodes = EditorNodeRef.get_registered(Keys.FS_DIALOGS, false)
+	if not dialog_nodes: # not registered yet (plugin unloaded before the first scan finished)
+		return
 	var first_dialog = dialog_nodes[0]
 	if not is_instance_valid(first_dialog):
 		printerr("FileSystem Dialogs have been freed likely by FileSystem Instances plugin. Save your work and restart the editor.")
@@ -713,9 +718,11 @@ static func reset_dialogs(parent=null, _mouse=null):
 
 static func _get_move_dialog() -> Window:
 	var dialogs = FileSystemSingleton.get_dialogs()
+	if dialogs == null:
+		return null
 	var move_dialog:Window
-	for dialog:Window in dialogs:
-		if dialog.get_class() == Keys.EDITOR_DIR_DIALOG:
+	for dialog in dialogs:
+		if is_instance_valid(dialog) and dialog.get_class() == Keys.EDITOR_DIR_DIALOG:
 			move_dialog = dialog
 			break
 	return move_dialog
@@ -975,9 +982,11 @@ static func paths_have_same_root(path:String, path_2:String):
 
 
 func _all_unregistered_callback():
-	var move_dialog = _get_move_dialog()
-	if move_dialog.about_to_popup.is_connected(_move_dialog_create_file_list):
-		move_dialog.about_to_popup.disconnect(_move_dialog_create_file_list)
+	# Dialogs register after the first scan; the plugin can unload before that (e.g. headless --quit).
+	if not is_instance_valid(_move_dialog):
+		return
+	if _move_dialog.about_to_popup.is_connected(_move_dialog_create_file_list):
+		_move_dialog.about_to_popup.disconnect(_move_dialog_create_file_list)
 
 class Cache:
 	var data_cache:= {}
